@@ -1,0 +1,4 @@
+name: QC
+channels:
+  - defaults
+prefix: /gpfs01/home/mbyct9/miniconda3/envs/QC
