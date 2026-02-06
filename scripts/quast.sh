@@ -16,12 +16,13 @@ source $HOME/.bash_profile
 
 conda activate quast
 
-FILE1=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/short_read_assembly/assembly.fasta
-FILE2=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/long_read_assembly/assembly.fasta
-FILE3=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/hybrid_assembly/assembly.fasta
+SHORT=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/short_read/assembly.fasta
+LONG=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/long_read/assembly.fasta
+HYBRID=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/hybrid/assembly.fasta
+POLISHED=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/assembly/long_read/polished.fasta
 
 OUT=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/quast
 REF=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/reference/genome.fna
 FET=/gpfs01/share/BioinfMSc/life4136_2526/rotation1/group5/reference/anotated.gff
 
-quast $FILE1 $FILE2 $FILE3 -o $OUT -r $REF -g $FET
+quast $SHORT $LONG $HYBRID $POLISHED -o $OUT -r $REF -g $FET
