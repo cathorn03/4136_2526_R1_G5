@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=256g
-#SBATCH --time=1:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mail-user=XXXX@nottingham.ac.uk
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -27,12 +27,9 @@ mkdir long_reads
 mkdir hybrid
 
 unicycler -1 $R1 -2 $R2 -o ./short_reads --threads 20
-unicycler -l $LONG -o $./long_reads --threads 20
+unicycler -l $LONG -o ./long_reads --threads 20
 unicycler -1 $SHORT_F -2 $SHORT_R -l $LONG -o ./hybrid --threads 20
 
-conda deactivate
-
-conda activate polish
 
 cd ../long_reads
 
@@ -49,6 +46,7 @@ fold -b -w 60 short_polished.fasta > ml_polished.fasta
 
 conda deactivate
 
+
 conda activate quast
 
 cd ../
@@ -64,3 +62,5 @@ REF=./reference/genome.fna
 FET=./referemce/anotated.gff
 
 quast $SHORT $LONG $HYBRID $POLISHED -o $OUT -r $REF -g $FET
+
+conda deactivate

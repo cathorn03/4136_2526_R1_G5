@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=256g
-#SBATCH --time=1:00:00
+#SBATCH --time=12:00:00
 #SBATCH --mail-user=XXXX@nottingham.ac.uk
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -14,7 +14,7 @@
 #SBATCH --error=./slurm-errors/slurm-%x-%j.err
 
 source $HOME/.bash_profile
-conda activate prokka
+conda activate annotation
 
 mkdir annotations
 cd annotations
@@ -38,3 +38,6 @@ prokka --kingdom Archaea --outdir $OUT $FILE
 OUT=./polished/
 FILE=../assemblies/long_reads/ml_polished.fasta
 prokka --kingdom Archaea --outdir $OUT $FILE
+
+
+conda deactivate

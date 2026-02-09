@@ -14,10 +14,11 @@
 #SBATCH --error=./slurm-errors/slurm-%x-%j.err
 
 source $HOME/.bash_profile
-conda activate genovi
+conda activate annotation
 
 mkdir genovi
 cd ./genovi
+
 
 GBK=../annotations/short_reads/PROKKA*.gbk
 OUT=./short_reads
@@ -34,3 +35,6 @@ genovi -i $GBK -s complete -o $OUT
 GBK=../annotations/polished/PROKKA*.gbk
 OUT=./polished
 genovi -i $GBK -s complete -o $OUT
+
+
+conda deactivate
