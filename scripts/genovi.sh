@@ -13,11 +13,11 @@
 #SBATCH --output=./slurm-outputs/slurm-%x-%j.out
 #SBATCH --error=./slurm-errors/slurm-%x-%j.err
 
-source $HOME/.bash_profile
-conda activate annotation
+source $HOME/.bash_profile #Allows conda use
+conda activate annotation #Activates annotation env
 
-mkdir genovi
-cd ./genovi
+mkdir genovi #Makes output directory
+cd ./genovi #Enters directory
 
 
 GBK=../annotations/short_reads/PROKKA*.gbk
@@ -35,6 +35,6 @@ genovi -i $GBK -s complete -o $OUT
 GBK=../annotations/polished/PROKKA*.gbk
 OUT=./polished
 genovi -i $GBK -s complete -o $OUT
+#Runs genovi for each of the assemblies
 
-
-conda deactivate
+conda deactivate #Deactivates env

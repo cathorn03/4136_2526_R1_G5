@@ -13,12 +13,11 @@
 #SBATCH --output=./slurm-outputs/slurm-%x-%j.out
 #SBATCH --error=./slurm-errors/slurm-%x-%j.err
 
-source $HOME/.bash_profile
-conda activate annotation
+source $HOME/.bash_profile #Allows conda use
+conda activate annotation #Activates annotation env
 
-mkdir annotations
-cd annotations
-
+mkdir annotations #Creates output directory
+cd annotations #Enters the directory
 
 OUT=./short_reads/
 FILE=../assemblies/short_reads/assembly.fasta
@@ -38,6 +37,6 @@ prokka --kingdom Archaea --outdir $OUT $FILE
 OUT=./polished/
 FILE=../assemblies/long_reads/ml_polished.fasta
 prokka --kingdom Archaea --outdir $OUT $FILE
+#Runs Prokka for each of the assemblies.
 
-
-conda deactivate
+conda deactivate #Deactivates conda

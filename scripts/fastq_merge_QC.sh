@@ -14,32 +14,41 @@
 
 cd ./long_reads #Enters long reads folder
 
-cat *.fastq > merged_lr.fastq
+cat *.fastq.gz > merged_lr.fastq.gz #Merges long reads together
 
-cd ../short_reads
+lr_FASTQ=merged_lr.fastq.gz
+#Creates variable for NanoPlot
 
-cat *R1*.fastq > merged_sr_R1.fastq
-cat *R2*.fastq > merged_sr_R2.fastq
-cat *.fastq > merged_sr.fastq
+cd ../short_reads #Enters short reads folder
 
-cd ../
+cat *R1*.fastq.gz > merged_sr_R1.fastq.gz #Merges forward reads
+cat *R2*.fastq.gz > merged_sr_R2.fastq.gz #Merges reverse reads
+cat *.fastq > merged_sr.fastq.gz #Merges all reads
+
+R1_FASTQ=merged_sr_R1.fastq.gz
+R2_FASTQ=merged_sr_R2.fastq.gz
+sr_FASTQ=merged_sr.fastq.gz
+#Creates variables for FastQC
+
+cd ../ #Enters working folder
+
 mkdir QC
 mkdir QC/FastQC
-mkdir QC/Nanoplot
-cd QC/FastQC
+mkdir QC/NanoPlot
+#Makes directories for the QC outputs
 
-fastqc -o ./ ../../short_reads/merged_sr_R1.fastq
-fastqc -o ./ ../../short_reads/merged_sr_R2.fastq
-fastqc -o ./ ../../short_reads/merged_sr.fastq
+cd QC/FastQC #Enters output folder for fastqc
 
-cd ../
+fastqc -o ./ $R1_FASTQ
+fastqc -o ./ $R2_FASTQ
+fastqc -o ./ $sr_FASTQ
+#Runs FastQC on all short reads
+
+cd ../NanoPlot #Enters output folder for naoplot
 
 source $HOME/.bash_profile #Allows conda use
-conda activate QC  #activates the groupwork env
+conda activate QC  #activates the QC env
 
-FASTQ=../long_reads/merged_lr.fastq
-OUT=./Nanoplot
+NanoPlot --fastq $lr_FASTQ --plots hex dot -o ./ #Runs nanoplot
 
-NanoPlot --fastq $FASTQ --plots hex dot -o $OUT
-
-conda deactivate
+conda deactivate #Deactivates env

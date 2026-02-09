@@ -13,44 +13,47 @@
 #SBATCH --output=./slurm-outputs/slurm-%x-%j.out
 #SBATCH --error=./slurm-errors/slurm-%x-%j.err
 
-source $HOME/.bash_profile
-conda activate assemblies
+source $HOME/.bash_profile #Allows conda use
+conda activate assemblies #Activates assemblies env
 
-R1=./short_reads/merged_sr_R1.fastq
-R2=./short_reads/merged_sr_R2.fastq
-LONG=./long_reads/merged_lr.fastq
-
-mkdir assemlbies
+mkdir assemblies
 cd assemblies
-mkdir short_reads
-mkdir long_reads
+mkdir short
+mkdir long
 mkdir hybrid
+#Makes outputs directories for the assemblies
+
+R1=../short_reads/merged_sr_R1.fastq.gz
+R2=../short_reads/merged_sr_R2.fastq.gz
+LONG=../long_reads/merged_lr.fastq.gz
+#Sets variables for the assemlbies
 
 unicycler -1 $R1 -2 $R2 -o ./short_reads --threads 20
 unicycler -l $LONG -o ./long_reads --threads 20
 unicycler -1 $SHORT_F -2 $SHORT_R -l $LONG -o ./hybrid --threads 20
+#Runs unicyler for all the reads
 
+cd ../long_reads #Enters long reads folder
 
-cd ../long_reads
-
-READS=../short_reads/merged_sr.fastq
+READS=../short_reads/merged_sr.fastq.gz
 ASSEMBLY=../assemblies/long_reads/assembly.fastq
+#Creates variables for polishing
 
-minimap2 -a -t 16 $ASSEMBLY $READS > short_vs_assembly.sam
-OVERLAPS=./short_vs_assembly.sam
+minimap2 -a -t 16 $ASSEMBLY $READS > short_vs_assembly.sam #Creates sam file with sequence overlaps
+OVERLAPS=./short_vs_assembly.sam #Sets ads a variable for Racon
 
-cd ../assemblies/long_reads
+cd ../assemblies/long_reads #Enters long_read assembly output directory.
 
-racon -t 16 -m 8 -x -6 -g -8 -w 500 $READS $OVERLAPS $ASSEMBLY > sl_polished.fasta
-fold -b -w 60 short_polished.fasta > ml_polished.fasta
+racon -t 16 -m 8 -x -6 -g -8 -w 500 $READS $OVERLAPS $ASSEMBLY > sl_polished.fasta #Runs racon
+fold -b -w 60 sl_polished.fasta > ml_polished.fasta #Formats reads to be multiline
 
-conda deactivate
+conda deactivate #Deactivates this env
 
 
-conda activate quast
+conda activate quast #Activates env for quast
 
-cd ../
-mkdir quast
+cd ../ #Enters working directory
+mkdir quast 
 
 SHORT=./assemblies/short_reads/assembly.fasta
 LONG=./assemblies/long_reads/assembly.fasta
@@ -60,7 +63,9 @@ POLISHED=./assemblies/long_reads/ml_polished.fasta
 OUT=./quast
 REF=./reference/genome.fna
 FET=./referemce/anotated.gff
+#Sets variables for quast
 
 quast $SHORT $LONG $HYBRID $POLISHED -o $OUT -r $REF -g $FET
+#Runs quast
 
 conda deactivate
