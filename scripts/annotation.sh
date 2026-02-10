@@ -40,3 +40,5 @@ prokka --kingdom Archaea --outdir $OUT $FILE
 #Runs Prokka for each of the assemblies.
 
 conda deactivate #Deactivates conda
+
+cd ../

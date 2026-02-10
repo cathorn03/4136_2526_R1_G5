@@ -52,3 +52,5 @@ conda activate QC  #activates the QC env
 NanoPlot --fastq $lr_FASTQ --plots hex dot -o ./ #Runs nanoplot
 
 conda deactivate #Deactivates env
+
+cd ../../

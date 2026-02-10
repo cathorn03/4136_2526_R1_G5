@@ -28,21 +28,21 @@ R2=../short_reads/merged_sr_R2.fastq.gz
 LONG=../long_reads/merged_lr.fastq.gz
 #Sets variables for the assemlbies
 
-unicycler -1 $R1 -2 $R2 -o ./short_reads --threads 20
-unicycler -l $LONG -o ./long_reads --threads 20
-unicycler -1 $SHORT_F -2 $SHORT_R -l $LONG -o ./hybrid --threads 20
+unicycler -1 $R1 -2 $R2 -o ./short -t 20
+unicycler -l $LONG -o ./long -t 20
+unicycler -1 $R1 -2 $R2 -l $LONG -o ./hybrid -t 20
 #Runs unicyler for all the reads
 
 cd ../long_reads #Enters long reads folder
 
 READS=../short_reads/merged_sr.fastq.gz
-ASSEMBLY=../assemblies/long_reads/assembly.fastq
+ASSEMBLY=../assemblies/long/assembly.fastq
 #Creates variables for polishing
 
 minimap2 -a -t 16 $ASSEMBLY $READS > short_vs_assembly.sam #Creates sam file with sequence overlaps
 OVERLAPS=./short_vs_assembly.sam #Sets ads a variable for Racon
 
-cd ../assemblies/long_reads #Enters long_read assembly output directory.
+cd ../assemblies/long #Enters long_read assembly output directory.
 
 racon -t 16 -m 8 -x -6 -g -8 -w 500 $READS $OVERLAPS $ASSEMBLY > sl_polished.fasta #Runs racon
 fold -b -w 60 sl_polished.fasta > ml_polished.fasta #Formats reads to be multiline
@@ -52,20 +52,21 @@ conda deactivate #Deactivates this env
 
 conda activate quast #Activates env for quast
 
-cd ../ #Enters working directory
+cd ../../ #Enters working directory
 mkdir quast 
 
-SHORT=./assemblies/short_reads/assembly.fasta
-LONG=./assemblies/long_reads/assembly.fasta
+SHORT=./assemblies/short/assembly.fasta
+LONG=./assemblies/long/assembly.fasta
 HYBRID=./assemblies/hybrid/assembly.fasta
-POLISHED=./assemblies/long_reads/ml_polished.fasta
+POLISHED=./assemblies/long/ml_polished.fasta
 
 OUT=./quast
 REF=./reference/genome.fna
-FET=./referemce/anotated.gff
+FET=./reference/anotated.gff
 #Sets variables for quast
 
 quast $SHORT $LONG $HYBRID $POLISHED -o $OUT -r $REF -g $FET
 #Runs quast
 
 conda deactivate
+
