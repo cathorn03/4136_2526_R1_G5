@@ -20,11 +20,8 @@ The below code will install all the conda environments when used within the envs
 
 ```{bash}
 conda install -f QC.yml
-
 conda install -f assemblies.yml
-
 conda install -f quast.yml
-
 conda install -f annotation.yml
 ```
 
@@ -223,12 +220,9 @@ In the working directory place all short reads into a directory named `short_rea
 
 ```{bash}
 mkdir short_reads
-
 cp /path/to/ShortReads/*.fasta.gz ./short_reads/
 
-
 mkdir long_reads
-
 cp /path/to/LongReads/*.fasta.gz ./long_reads/
 ```
 
@@ -237,9 +231,7 @@ The `.fna` needs to be named `reference.fna` and the `.gff` needs to be named `a
 
 ```{bash}
 mkdir reference
-
 cp /path/to/reference ./reference/reference.fna
-
 cp cp /path/to/reference ./reference/annotated.gff
 ```
 
@@ -263,7 +255,6 @@ The two scripts can be ran independently and in any order as below.
 
 ```{bash}
 sbatch ./scripts/2a_Short_QC.sh
-
 sbatch ./scripts/2b_Long_QC.sh
 ```
 
