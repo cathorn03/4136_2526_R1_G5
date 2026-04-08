@@ -20,20 +20,20 @@ mkdir genovi #Makes output directory
 cd ./genovi #Enters directory
 
 
-GBK=../annotations/short_reads/PROKKA*.gbk
-OUT=./short_reads
+GBK=$(find ../annotations/short -name "PROKKA*.gbk" | head -n 1)
+OUT=short_reads
 genovi -i $GBK -s complete -o $OUT
 
-GBK=../annotations/long_reads/PROKKA*.gbk
-OUT=./long_reads
+GBK=$(find ../annotations/long -name "PROKKA*.gbk" | head -n 1)
+OUT=long_reads
 genovi -i $GBK -s complete -o $OUT
 
-GBK=../annotations/hybridPROKKA*.gbk
-OUT=./hybrid
+GBK=$(find ../annotations/hybrid -name "PROKKA*.gbk" | head -n 1)
+OUT=hybrid
 genovi -i $GBK -s complete -o $OUT
 
-GBK=../annotations/polished/PROKKA*.gbk
-OUT=./polished
+GBK=$(find ../annotations/polished -name "PROKKA*.gbk" | head -n 1)
+OUT=polished
 genovi -i $GBK -s complete -o $OUT
 #Runs genovi for each of the assemblies
 

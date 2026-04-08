@@ -307,15 +307,22 @@ sbatch ./scripts/6_Annotations.sh
 
 An output directory named `annotations` is made with sub-directories for each of the assemblies.
 
-The Prokka `.gbk` files are then each put into Genovi to produce a circular visualisations of the assemblies against the genome.
-An output directory named `genovi` is made with subdirectories for each of the different assemblies.
+The Prokka `.gbk` files are then each put into GenoVi to produce a circular visualisations of the assemblies against the genome.
+An output directory named `genovi` is made with sub-directories for each of the different assemblies.
 
 ```{bash}
 sbatch ./scripts/7_Genovi.sh
 ```
 
-For each assembliy a `.png` and `.svg` file of the visualisation is made in the directory. 
-A `.csv` file is also produced containing information about the replicons in the visualisations.
+For each assembly a `.png` and `.svg` file of the visualisation is made in the directory. 
+These visualisations include ones depicting the contigs/chromosomes, and the genes which lie within.
+
+A `.csv` file containing statistics about the assembly, named `*_gral_stats.csv` is produced.
+This contains size, GC content, CDS, tRNA, and rRNA information about each contig.
+
+These are coloured by their Clusters of Orthologous Groups (COG) categories and show different genomic features.
+Along side these visualisations, several `.csv` files which containing statistics about the COG categories.
+A `.png` of a histogram for the abundance of the different COG categories is also produced.
 
 ## Authors
 

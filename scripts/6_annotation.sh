@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=256g
-#SBATCH --time=12:00:00
+#SBATCH --time=1:00:00
 #SBATCH --mail-user=XXXX@nottingham.ac.uk
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
@@ -19,14 +19,14 @@ conda activate annotation #Activates annotation env
 mkdir annotations #Creates output directory
 cd annotations #Enters the directory
 
-OUT=./short_reads/
+OUT=./short/
 FILE=../assemblies/short/assembly.fasta
 KINGDOM=Archaea
 
 prokka --kingdom $KINGDOM --outdir $OUT $FILE
 
 
-OUT=./long_reads/
+OUT=./long/
 FILE=../assemblies/long/assembly.fasta
 prokka --kingdom $KINGDOM --outdir $OUT $FILE
 

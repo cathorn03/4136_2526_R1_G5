@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=5g
 #SBATCH --time=1:00:00
-#SBATCH --mail-user=XXXX@nottingham.ac.uk
+#SBATCH --mail-user=XXX@nottingham.ac.uk
 #SBATCH --mail-type=begin
 #SBATCH --mail-type=fail
 #SBATCH --mail-type=end
