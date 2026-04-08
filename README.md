@@ -5,7 +5,17 @@ rotation 1 in LIFE4136.
 
 ## Introduction
 
-This repo
+This project set out to understand the genetic changes which have occurred within a produced strain of a microorganism.
+Short-read (Illumina) and long-read (Nanopore) sequencing data was provided.
+By producing genome assemblies from sequencing data it is possible to identify these changes.
+An assembly aligns, merges, and orders the sequencing data for the samples to produce a reconstruction of the organisms entire genome.
+By interrogating the produced assemblies, genetic changes which have occured can be identified through comparisons to a reference genome.
+
+## Objectives
+
+In this project we aim to produce a streamlined bioinformatics pipline which is able to use both short-read (Illumina) and long-read (Nanopore)
+sequencing data to be able to identify and characterise genetic changes within the microorganism.
+The characterisation of the genetic changes will allow for the locations and types of changes to become known.
 
 ## Repository Layout
 
@@ -42,14 +52,14 @@ The environments provided contain the following software, each is provided with 
 | Racon     | 1.5.0   | assemblies  | https://github.com/isovic/racon |
 | Quast     | 5.0.2   | quast       | https://github.com/ablab/quast |
 | Prokka    | 1.13    | annotation  | https://github.com/tseemann/prokka |
-| Genovi    | 0.4.3   | annotation  | https://github.com/robotoD/GenoVi |
+| GenoVi    | 0.4.3   | annotation  | https://github.com/robotoD/GenoVi |
 
 ## User File Layout
 
 To run the initial script reads must be split into directories named `long_reads` and `short_reads`.
 All reads need to be in a `fastq.gz` format. Short reads must have forward and reverse reads identified with `R1` and `R2` respectively.
 
-Reference genomes should be placed in a directory named `reference`. It should contain a `.fna` file named `genome` and a `.gff` file named `annotated`.
+Reference genomes should be placed in a directory named `reference`. It should contain a `.fna` file containg the reference genome and an annotated `.gff` file.
 
 The scripts can either be placed in the working directory, or the folder can be placed within the same directory, and the scripts ran from outside of the scripts folder.
 For each script a command is provided to run the scripts as is the scripts directory from this repo was coppied into the working directory.
@@ -287,6 +297,7 @@ sbatch ./scripts/4_Polished_assembly
 
 All 4 assemblies are put through quast for QC.
 This requires the reference genome for the organism in a `.fna` as well as an annotated sequence in a `.gff` format.
+If the species is unkown and no reference genome is provided a BLAST search on part of the assembled genomes can provide a species name to find a reference.
 
 ```{bash}
 sbatch ./scripts/5_Quast.sh
