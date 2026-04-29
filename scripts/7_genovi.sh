@@ -20,7 +20,7 @@ mkdir genovi #Makes output directory
 cd ./genovi #Enters directory
 
 
-GBK=$(find ../annotations/short -name "PROKKA*.gbk" | head -n 1)
+GBK=$(find ../annotations/short -name "PROKKA*.gbk" | head -n 1) #Handles use of wildcard when reading in prokka
 OUT=short_reads
 genovi -i $GBK -s complete -o $OUT
 
