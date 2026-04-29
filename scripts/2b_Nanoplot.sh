@@ -18,7 +18,8 @@ conda activate QC  #activates the QC env
 mkdir QC
 mkdir QC/NanoPlot
 cd QC/NanoPlot
+#Creates output directories
 
-lr_FASTQ=../../long_reads/merged_lr.fastq.gz
+lr_FASTQ=../../long_reads/merged_lr.fastq.gz #Sets variable to use in nanoplot
 
 NanoPlot --fastq $lr_FASTQ --plots hex dot -o ./ #Runs nanoplot

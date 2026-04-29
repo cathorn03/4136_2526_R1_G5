@@ -17,11 +17,13 @@ source $HOME/.bash_profile #Allows conda use
 conda activate quast #Activates quast env
 
 mkdir quast 
+#Makes the output directory
 
 SHORT=./assemblies/short/assembly.fasta
 LONG=./assemblies/long/assembly.fasta
 HYBRID=./assemblies/hybrid/assembly.fasta
 POLISHED=./assemblies/long/ml_polished.fasta
+#Sets assembly fasta files as variables for quast
 
 OUT=./quast
 REF=./reference/*.fna

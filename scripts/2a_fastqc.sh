@@ -17,13 +17,15 @@ conda activate QC  #activates the QC env
 
 mkdir QC
 mkdir QC/short
-
 cd QC/short
+#Makes and enters the output directory
 
 R1_FASTQ=../../short_reads/merged_sr_R1.fastq.gz
 R2_FASTQ=../../short_reads/merged_sr_R2.fastq.gz
 mg_FASTQ=../../short_reads/merged_sr.fastq.gz
+#Sets the fastq files as variables to use for fastqc
 
 fastqc -o ./ $R1_FASTQ
 fastqc -o ./ $R2_FASTQ
 fastqc -o ./ $mg_FASTQ
+#Runs fastq on each of the merged fastq files

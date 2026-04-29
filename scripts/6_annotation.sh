@@ -19,10 +19,11 @@ conda activate annotation #Activates annotation env
 mkdir annotations #Creates output directory
 cd annotations #Enters the directory
 
+KINGDOM=Archaea
+#Sets kingodom for each of the prokka runs
+
 OUT=./short/
 FILE=../assemblies/short/assembly.fasta
-KINGDOM=Archaea
-
 prokka --kingdom $KINGDOM --outdir $OUT $FILE
 
 
